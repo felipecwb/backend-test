@@ -1,3 +1,6 @@
+
+[Instruções](INSTRUCTIONS.md)
+
 <p align="center">
   <a href="http://www.catho.com.br">
       <img src="http://static.catho.com.br/svg/site/logoCathoB2c.svg" alt="Catho"/>
