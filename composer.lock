@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9ff4e5e944885204027f6e10c6ee0083",
-    "content-hash": "af22f045531b9e30fd6c99ad7625f53b",
+    "hash": "efa5e78d59b569732aa7166699a5c64b",
+    "content-hash": "166d1742b6f2c44de2cc476a111ffebc",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -76,52 +76,6 @@
                 "caching"
             ],
             "time": "2016-10-29 11:16:17"
-        },
-        {
-            "name": "felipecwb/soundslike",
-            "version": "0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/felipecwb/soundslike.git",
-                "reference": "08ed29f4ed0a2fd8cbb8b230b7b98cf235eb907a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/felipecwb/soundslike/zipball/08ed29f4ed0a2fd8cbb8b230b7b98cf235eb907a",
-                "reference": "08ed29f4ed0a2fd8cbb8b230b7b98cf235eb907a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "5.5.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Felipecwb\\SoundsLike\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Felipe Francisco",
-                    "email": "felipefrancisco.cwb@gmail.com",
-                    "homepage": "http://felipecwb.com.br"
-                }
-            ],
-            "description": "Sounds Like Text Search",
-            "homepage": "https://github.com/felipecwb/soundslike",
-            "keywords": [
-                "fulltext",
-                "search",
-                "text"
-            ],
-            "time": "2016-11-18 17:56:04"
         },
         {
             "name": "pimple/pimple",
@@ -2059,7 +2013,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5"
+        "php": ">=5.5",
+        "ext-memcached": "*"
     },
     "platform-dev": []
 }

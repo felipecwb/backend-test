@@ -1,7 +1,12 @@
 
 # Instruções
 
-Para rodar é necessário [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
+Para funcionar o projeto é necessário:
+ * [Docker](https://www.docker.com/)
+ * [Docker Compose](https://docs.docker.com/compose/)
+ * [Composer](https://getcomposer.org/)
 
-* Executar Containers: `$ docker-compose up -d` no diretório do projeto.
-* Abrir [localhost](0.0.0.0)
+Executar:
+* composer: `$ composer install`
+* Containers: `$ docker-compose up -d`
+* Abrir [localhost](http://0.0.0.0)
