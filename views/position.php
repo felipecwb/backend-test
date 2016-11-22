@@ -3,11 +3,13 @@
     <head>
         <title>Vagas - Catho</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="/assets/styles.css">
+        <link rel="stylesheet" type="text/css" href="/static/vendor/semantic/dist/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     </head>
-    <body id="root">
-        <div class="ui raised very padded container segment">
+    <body>
+        <div id="root">
+        </div>
+        <!-- <div class="ui raised very padded container segment">
             <div class="ui header grid">
                 <div class="six wide column"></div>
                 <div class="two wide column">
@@ -44,16 +46,16 @@
                         <b>Cidade - UF</b><br>
                         <b>Salário: </b> <span style="ui red">$ 3.000,00</span>
                         <blockquote class="details">
-                            
+
                         </blockquote>
                     </section>
                 </article>
 
             </div>
-        </div>
+        </div> -->
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
-        <script src="/assets/all.js"></script>
+        <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="/static/vendor/semantic/dist/semantic.min.js"></script>
+        <script src="/static/js/index.js"></script>
     </body>
 </html>

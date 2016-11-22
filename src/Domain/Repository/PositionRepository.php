@@ -9,74 +9,38 @@ use Doctrine\Common\Cache\CacheProvider;
 class PositionRepository
 {
     /**
-     * @var Position[]
+     * @var PositionFile
      */
-    private $positions = array();
+    private $file;
+
     /**
      * @var CacheProvider
      */
-    private $cache = array();
+    private $cache;
 
     public function __construct(PositionFile $file, CacheProvider $cache)
     {
         $this->cache = $cache;
-
-        if ($this->cache->contains('list.positions')) {
-            $this->positions = $this->cache->fetch('list.positions');
-            return;
-        }
-
-        foreach ($file->getContent() as $position) {
-            $this->positions[] = $this->exchange($position);
-        }
-
-        $this->cache->save('list.positions', $this->positions, 3600);
+        $this->file = $file;
     }
 
     /**
-     * @param  array  $criterias Dados para busca
-     * @return Position[]            [description]
+     * @param  array  $search Dados para busca
+     * @return Position[]
      */
-    public function find(array $criterias = array())
+    public function find(array $search = array())
     {
-        $positions = $this->positions;
+        $positions = $this->getPositionsInCache();
 
-        if (array_key_exists('title', $criterias)) {
-            $title = self::changeAccents($criterias['title']);
-
-            $positions = array_filter($positions, function (Position $p) use ($title) {
-                $field = self::changeAccents($p->getTitle());
-                foreach (explode(' ', $title) as $word) {
-                    if (false === stripos($field, $word)) {
-                        return false;
-                    }
-                };
-
-                return true;
-            });
+        if (array_key_exists('title', $search)) {
+            $positions = $this->searchInField($search['title'], 'title', $positions);
         }
 
-        if (array_key_exists('description', $criterias)) {
-            $description = self::changeAccents($criterias['description']);
-
-            $positions = array_filter($positions, function (Position $p) use ($description) {
-                $field = self::changeAccents($p->getDescription());
-                foreach (explode(' ', $description) as $word) {
-                    if (false === stripos($field, $word)) {
-                        return false;
-                    }
-                };
-
-                return true;
-            });
+        if (array_key_exists('description', $search)) {
+            $positions = $this->searchInField($search['description'], 'description', $positions);
         }
 
-        $ret = [];
-        foreach ($positions as $position) {
-            $ret[] = $position;
-        }
-
-        return $ret;
+        return $positions;
     }
 
     /**
@@ -90,13 +54,65 @@ class PositionRepository
 
         $locations = array_map(function (Position $position) {
             return $position->getCityEstate();
-        }, $this->positions);
+        }, $this->getPositionsInCache());
 
         $locations = array_unique($locations);
         sort($locations);
 
         $this->cache->save('list.locations', $locations, 3600);
         return $locations;
+    }
+
+    /**
+     * @return Position[]
+     */
+    protected function getPositionsInCache()
+    {
+        if ($this->cache->contains('list.positions')) {
+            return $this->cache->fetch('list.positions');
+        }
+
+        $positions = [];
+        foreach ($file->getContent() as $position) {
+            $positions[] = $this->exchange($position);
+        }
+
+        $this->cache->save('list.positions', $positions, 3600);
+
+        return $positions;
+    }
+
+    /**
+     * Brings the matched positions with search
+     * @param  string $search    [description]
+     * @param  string $field     [description]
+     * @param  array $positions [description]
+     * @return Position[]
+     */
+    protected function searchInField($search, $field, $positions)
+    {
+        if (! in_array($field, ['title', 'description'])) {
+            return $positions;
+        }
+
+        $search = self::changeAccents($search);
+
+        // match all words from $search against the data in $field
+        $positions = array_filter($positions, function (Position $p) use ($search, $field) {
+            $data = $field === 'title' ? $p->getTitle() : $p->getDescription();
+            $data = self::changeAccents($data);
+
+            foreach (explode(' ', $search) as $word) {
+                if (false === stripos($data, $word)) {
+                    return false;
+                }
+            };
+
+            return true;
+        });
+
+        // discard key preservation from array_filter
+        return array_values($positions);
     }
 
     /**
