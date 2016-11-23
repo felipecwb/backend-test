@@ -73,7 +73,7 @@ class PositionRepository
         }
 
         $positions = [];
-        foreach ($file->getContent() as $position) {
+        foreach ($this->file->getContent() as $position) {
             $positions[] = $this->exchange($position);
         }
 
@@ -102,7 +102,7 @@ class PositionRepository
             $data = $field === 'title' ? $p->getTitle() : $p->getDescription();
             $data = self::changeAccents($data);
 
-            foreach (explode(' ', $search) as $word) {
+            foreach (array_filter(explode(' ', $search)) as $word) {
                 if (false === stripos($data, $word)) {
                     return false;
                 }
