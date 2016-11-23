@@ -16,10 +16,13 @@ verify:
 	which docker docker-compose
 	@echo " -> All Installations OK..."
 
-build: verify
-	@echo " -> Building..."
+deps: verify
+	@echo " -> Installing Dependencies:"
 	composer install
 	npm install
+
+build: deps
+	@echo " -> Building..."
 	gulp
 	@echo " -> Build Successful!!!"
 

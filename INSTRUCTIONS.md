@@ -8,7 +8,8 @@ uso:
 make # make up
 
 make verify # verifica oq precisa no $PATH
-make build  # scripts de dependencias e empacotação
+make deps   # scripts de dependencias
+make build  # empacotação, gerar arquivos estáticos
 make up     # serviços docker
 
 make up     # verifica gerenciadores de pacotes
