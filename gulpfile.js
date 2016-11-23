@@ -21,7 +21,7 @@ gulp.task('set-prod', function() {
 
 // Dependencies
 gulp.task('bower', function () {
-    bower({cmd: 'install', directory: paths.vendor});
+    return bower({cmd: 'install', directory: paths.vendor});
 });
 
 // WATCH
@@ -34,7 +34,7 @@ gulp.task('watch', function w() {
 });
 
 // transpiler Scripts
-gulp.task('scripts', function () {
+gulp.task('scripts', ['bower'], function () {
     return gulp.src(paths.JS)
         .pipe(babel({presets: ['react', 'es2015']}))
         .pipe(gulp.dest(paths.temp))
@@ -72,4 +72,4 @@ gulp.task('scripts', function () {
         });
 });
 
-gulp.task('default', ['set-prod', 'bower', 'scripts']);
+gulp.task('default', ['set-prod', 'scripts']);
