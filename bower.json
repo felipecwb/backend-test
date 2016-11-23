@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "semantic": "^2.2.6",
-    "react": "^15.4.0"
+    "react": "^15.4.0",
+    "axios": "^0.15.2"
   }
 }

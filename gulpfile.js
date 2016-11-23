@@ -9,49 +9,61 @@ var gulp       = require('gulp'),
 var paths = {
     main: './public/js/index.js',
     JS: './public/js/**/*.js',
-    temp: './public/js/tmp',
+    temp: './tmp',
     vendor: './public/static/vendor',
     dist: './public/static/js/'
 }
 
+// Dependencies
 gulp.task('bower', function () {
     bower({cmd: 'install', directory: paths.vendor});
 });
 
 // WATCH
 gulp.task('watch', function w() {
-    return gulp.watch(paths.JS, ['scripts']);
+    try{
+        return gulp.watch(paths.JS, ['scripts']);
+    } catch (e){ // recursive way :P
+        return w();
+    }
 });
 
-gulp.task('jsx', function () {
+// transpiler Scripts
+gulp.task('scripts', function () {
     return gulp.src(paths.JS)
         .pipe(babel({presets: ['react', 'es2015']}))
-        .pipe(gulp.dest(paths.temp));
-});
-
-gulp.task('scripts', ['jsx'], function () {
-    return gulp.src(paths.temp + '/index.js')
-        .pipe(browserify({
-            shim: {
-                react: {
-                    path: paths.vendor + '/react/react.min.js',
-                    exports: 'React'
-                },
-                reactDOM: {
-                    path: paths.vendor + '/react/react-dom.min.js',
-                    exports: 'ReactDOM'
-                },
-                jQuery: {
-                    path: paths.vendor + '/jquery/dist/jquery.min.js',
-                    exports: 'jQuery'
-                }
-            }
-        }))
-        .pipe(uglify())
-        .pipe(gulp.dest(paths.dist))
+        .pipe(gulp.dest(paths.temp))
         .on('end', function () {
-            return gulp.src(paths.temp, {read: false})
+            console.log("[xx:xx:xx] Start browserify");
+            return gulp.src(paths.temp + '/index.js')
+                .pipe(browserify({
+                    shim: {
+                        'react': {
+                            path: paths.vendor + '/react/react.min.js',
+                            exports: 'React'
+                        },
+                        'jquery': {
+                            path: paths.vendor + '/jquery/dist/jquery.min.js',
+                            exports: 'jQuery'
+                        },
+                        'semantic-ui':{
+                            path: paths.vendor + '/semantic/dist/semantic.min.js',
+                            exports: ''
+                        },
+                        'axios': {
+                            path: paths.vendor + '/axios/dist/axios.min.js',
+                            exports: 'axios'
+                        }
+                    }
+                }))
+                .pipe(uglify())
+                .pipe(gulp.dest(paths.dist))
+                .on('end', function () {
+                    console.log("[xx:xx:xx] Finish browserify");
+                    console.log("[xx:xx:xx] Cleaning the mess. Done!");
+                    return gulp.src(paths.temp, {read: false})
                         .pipe(clean({force:true}));
+                });
         });
 });
 
