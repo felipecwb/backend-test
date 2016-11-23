@@ -14,6 +14,11 @@ var paths = {
     dist: './public/static/js/'
 }
 
+// Apply prod
+gulp.task('set-prod', function() {
+    return process.env.NODE_ENV = 'production';
+});
+
 // Dependencies
 gulp.task('bower', function () {
     bower({cmd: 'install', directory: paths.vendor});
@@ -67,4 +72,4 @@ gulp.task('scripts', function () {
         });
 });
 
-gulp.task('default', ['bower', 'scripts']);
+gulp.task('default', ['set-prod', 'bower', 'scripts']);
