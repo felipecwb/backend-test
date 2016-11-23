@@ -25,7 +25,7 @@ Para o projeto funcionar é necessário:
     * [Docker Compose](https://docs.docker.com/compose/)
 * [PHP](http://php.net/)
     * [Composer](https://getcomposer.org/)
-* [NodeJS]((https://nodejs.org/)
+* [NodeJS](https://nodejs.org/)
     * [NPM](https://www.npmjs.com/)
     * [Bower](https://bower.io/)
     * [Gulp](http://gulpjs.com/)
