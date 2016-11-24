@@ -11,7 +11,7 @@ verify:
 	@echo " -> Verify php, composer"
 	which php composer
 	@echo " -> Verify node, npm, gulp"
-	which node npm gulp
+	which node npm
 	@echo " -> Verify docker, docker-compose"
 	which docker docker-compose
 	@echo " -> All Installations OK..."

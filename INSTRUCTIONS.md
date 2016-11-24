@@ -41,7 +41,7 @@ make clean   # remove arquivos e pastas de dependencias
 ##### Hands on command:
 * composer: `$ composer install`
 * npm: `$ npm install`
-* gulp: `$ gulp`
+* gulp: `$ gulp` ou `node_modules/.bin/gulp`
 * docker: `$ docker-compose up -d`
 
 ##### Endpoints
