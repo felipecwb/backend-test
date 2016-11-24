@@ -23,7 +23,7 @@ deps: verify
 
 build: deps
 	@echo " -> Building..."
-	gulp
+	node_modules/.bin/gulp
 	@echo " -> Build Successful!!!"
 
 up: build
