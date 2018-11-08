@@ -16,7 +16,8 @@ services:
             - ./public:/usr/share/nginx/catho/public
 
     phpfpm:
-        image: felipecwb/php
+        build: .
+        image: catho-php
         volumes:
             #php source
             - ./:/home/catho
